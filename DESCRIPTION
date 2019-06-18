@@ -1,0 +1,9 @@
+Package: ZwsRoutineTools
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: Peter von Rohr <peter.vonrohr@qualitasag.ch> [aut, cre]
+Description: What the package does (one paragraph).
+Depends: R (>= 3.5.3)
+License: MIT
+Encoding: UTF-8
+LazyData: true
