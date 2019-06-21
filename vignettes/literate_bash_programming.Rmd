@@ -1,0 +1,23 @@
+---
+title: "Literate Bash Programming"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Literate Bash Programming}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Disclaimer
+The concept of literate programming is applied in the context of bash scripting.
+
+
+## Background
