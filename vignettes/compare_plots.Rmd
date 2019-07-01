@@ -1,0 +1,32 @@
+---
+title: "Compare Plots"
+author: "Peter von Rohr"
+date: "7/1/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Disclaimer
+Plots from two different GE-runs are compared by putting them side by side. There is a little complication that the plots from the previous GE-run must be restored from an archive. This is done in a junk of shell commands.
+
+
+## Comparison
+
+```{r, echo=FALSE, fig.show='hold', out.width="50%"}
+knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/1904/compareBull/Comp.mar_P.mar_P.png")
+knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/Comp.mar_P.mar_P.png")
+```
+
+With pdf plots
+
+```{r, echo=FALSE, fig.show='hold', out.width="50%"}
+knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/1904/compareBull/diff_edc_mar_P_P.pdf")
+knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/diff_edc_mar_P_P.pdf")
+```
+
