@@ -18,15 +18,15 @@ Plots from two different GE-runs are compared by putting them side by side. Ther
 
 ## Comparison of Plots
 
-```{r, eval=FALSE, echo=FALSE, fig.show='hold', out.width="50%"}
-knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/1904/compareBull/Comp.mar_P.mar_P.png")
-knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/Comp.mar_P.mar_P.png")
+```{r, eval=TRUE, echo=FALSE, fig.show='hold', out.width='50%'}
+knitr::include_graphics(path = '/Users/pvr/Data/Projects/Github/pvrqualitasag/zwsroutinetools/inst/extdata/archive/compare-plot/Rplot1.png')
+knitr::include_graphics(path = '/Users/pvr/Data/Projects/Github/pvrqualitasag/zwsroutinetools/inst/extdata/compare-plot/Rplot1.png')
 ```
 
 With pdf plots
 
-```{r, eval=FALSE, echo=FALSE, fig.show='hold', out.width="50%"}
-knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/1904/compareBull/diff_edc_mar_P_P.pdf")
-knitr::include_graphics(path = "/Volumes/data_zws/health/mar/work/bv/zws/compareBull/diff_edc_mar_P_P.pdf")
+```{r, eval=TRUE, echo=FALSE, fig.show='hold', out.width='50%'}
+knitr::include_graphics(path = '/Users/pvr/Data/Projects/Github/pvrqualitasag/zwsroutinetools/inst/extdata/archive/compare-plot/Rplot4.pdf')
+knitr::include_graphics(path = '/Users/pvr/Data/Projects/Github/pvrqualitasag/zwsroutinetools/inst/extdata/compare-plot/Rplot4.pdf')
 ```
 

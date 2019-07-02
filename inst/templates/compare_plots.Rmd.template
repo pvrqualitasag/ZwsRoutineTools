@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Disclaimer
-Plots from two different GE-runs are compared by putting them side by side. There is a little complication that the plots from the previous GE-run must be restored from an archive. This is done in a junk of shell commands.
+Plots from two different GE-runs are compared by putting them side by side. Plots from previous GE runs are extracted from the specified archive location. The zipped plot files from the archive are extracted using the funcition `R.utils::gunzip()` which works similarly to the shell version of `gunzip`.
 
 
-## Comparison of Plots
 
