@@ -6,8 +6,11 @@
 ###
 ### ########################################################## ###
 
-#' Create Report With Plots From Two GE Periods
+## -- Generic Comparison Plot Creator Function
+
+#' @title Create Report With Plots From Two GE Periods
 #'
+#' @description
 #' Based on a Rmarkdown Template (ps_templ) document all plots
 #' in given GE directory (ps_gedir) are taken. For a given plot
 #' in directory ps_gedir, a corresponding plot with the same
@@ -23,6 +26,18 @@
 #' @param ps_rmd_report name of report source file
 #' @param pb_debug flag indicating whether debug info is printed
 #'
+#' @examples
+#' \dontrun{
+#' create_ge_plot_report(ps_gedir       = "/Volumes/data_zws/fbk/work/bv/YearMinus0/compareBull",
+#'                     ps_archdir     = "/Volumes/data_archiv/zws/1904/fbk/work/bv/YearMinus0/compareBull",
+#'                     ps_trgdir      = "1904/compareBull",
+#'                     ps_templ       = "inst/templates/compare_plots.Rmd.template",
+#'                     ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for bulls of breed BV between GE-1904 on the left and the current GE-1908 on the right.",
+#'                     ps_rmd_report  = 'ge_plot_report_fbk_compareBulls_bv.Rmd',
+#'                     pb_debug       = TRUE)
+#'
+#' }
+#' @export create_ge_plot_report
 create_ge_plot_report <- function(ps_gedir,
                                   ps_archdir,
                                   ps_trgdir,
@@ -131,6 +146,52 @@ create_ge_plot_report <- function(ps_gedir,
   return(invisible(NULL))
 }
 
+
+## -- Creator Function for FBK --- -------------------------------------- ##
+
+#' @title Comparison Plot Creator Function For FBK
+#'
+#' @description
+#' Comparison reports containing all generated plots of a GE side-by-side
+#' with the plots of the previous GE are constructed for a given trait
+#' group.
+#'
+#' @param pl_plot_opts list of options specifying input for plot report creator
+#' @examples
+#' \dontrun{
+#' create_ge_compare_plot_report_fbk(pn_cur_ge_label  = 1908,
+#'                                   pn_prev_ge_label = 1904)
+#' }
+#'
+#' @export create_ge_compare_plot_report_fbk
+create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
+                                              pn_prev_ge_label,
+                                              pl_plot_opts = NULL){
+
+  # if no options are specified, we have to get the default options
+  l_plot_opts <- pl_plot_opts
+  if (is.null(l_plot_opts)){
+    l_plot_opts <- get_default_plot_opts_fbk()
+  }
+
+}
+
+
+## -- Default Plot Options for different traits --- ###
+
+#' @title Default Plot Options For FBK
+#'
+#' @description
+#'
+get_default_plot_opts_fbk <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/fbk/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = "inst/templates/compare_plots.Rmd.template",
+              rmd_report_stem = "ge_plot_report_fbk"))
+}
+
+
 ### # Testing stuff
 
 # local test call
@@ -154,21 +215,21 @@ create_ge_plot_report <- function(ps_gedir,
 #                       ps_rmd_report  = 'ge_plot_report_fbk_compareCow_bv.Rmd',
 #                       pb_debug       = TRUE)
 
-create_ge_plot_report(ps_gedir       = "/Volumes/data_zws/fbk/work/rh/YearMinus0/compareBull",
-                      ps_archdir     = "/Volumes/data_archiv/zws/1904/fbk/work/rh/YearMinus0/compareBull",
-                      ps_trgdir      = "1904/compareBull",
-                      ps_templ       = "inst/templates/compare_plots.Rmd.template",
-                      ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for bulls of breed RH between GE-1904 on the left and the current GE-1908 on the right.",
-                      ps_rmd_report  = 'ge_plot_report_fbk_compareBulls_rh.Rmd',
-                      pb_debug       = TRUE)
+# create_ge_plot_report(ps_gedir       = "/Volumes/data_zws/fbk/work/rh/YearMinus0/compareBull",
+#                       ps_archdir     = "/Volumes/data_archiv/zws/1904/fbk/work/rh/YearMinus0/compareBull",
+#                       ps_trgdir      = "1904/compareBull",
+#                       ps_templ       = "inst/templates/compare_plots.Rmd.template",
+#                       ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for bulls of breed RH between GE-1904 on the left and the current GE-1908 on the right.",
+#                       ps_rmd_report  = 'ge_plot_report_fbk_compareBulls_rh.Rmd',
+#                       pb_debug       = TRUE)
 
-create_ge_plot_report(ps_gedir       = "/Volumes/data_zws/fbk/work/rh/YearMinus0/compareCow",
-                      ps_archdir     = "/Volumes/data_archiv/zws/1904/fbk/work/rh/YearMinus0/compareCow",
-                      ps_trgdir      = "1904/compareCow",
-                      ps_templ       = "inst/templates/compare_plots.Rmd.template",
-                      ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for cows of breed RH between GE-1904 on the left and the current GE-1908 on the right.",
-                      ps_rmd_report  = 'ge_plot_report_fbk_compareCow_rh.Rmd',
-                      pb_debug       = TRUE)
+# create_ge_plot_report(ps_gedir       = "/Volumes/data_zws/fbk/work/rh/YearMinus0/compareCow",
+#                       ps_archdir     = "/Volumes/data_archiv/zws/1904/fbk/work/rh/YearMinus0/compareCow",
+#                       ps_trgdir      = "1904/compareCow",
+#                       ps_templ       = "inst/templates/compare_plots.Rmd.template",
+#                       ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for cows of breed RH between GE-1904 on the left and the current GE-1908 on the right.",
+#                       ps_rmd_report  = 'ge_plot_report_fbk_compareCow_rh.Rmd',
+#                       pb_debug       = TRUE)
 
 
 
