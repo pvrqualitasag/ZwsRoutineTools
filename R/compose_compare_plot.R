@@ -166,14 +166,57 @@ create_ge_plot_report <- function(ps_gedir,
 #' @export create_ge_compare_plot_report_fbk
 create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
                                               pn_prev_ge_label,
-                                              pl_plot_opts = NULL){
-
+                                              pl_plot_opts = NULL,
+                                              pb_debug     = FALSE){
+  # debugging message at the beginning
+  if (pb_debug)
+    log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+             ps_msg    = " * Start of function create_ge_compare_plot_report_fbk")
   # if no options are specified, we have to get the default options
   l_plot_opts <- pl_plot_opts
   if (is.null(l_plot_opts)){
     l_plot_opts <- get_default_plot_opts_fbk()
   }
 
+  # loop over breeds
+  for (breed in l_plot_opts$vec_breed){
+    # loop over breeds
+    if (pb_debug)
+      log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+               ps_msg    = paste0(" ** Loop for breed: ", breed, collapse = ""))
+
+    # loop over both sexes
+    for (sex in l_plot_opts$vec_sex){
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** Loop for sex: ", sex, collapse = ""))
+
+      # put together all directory names, start with GE working directory
+      s_ge_dir <- file.path(l_plot_opts$ge_dir_stem, breed, paste0("YearMinus0/compare", sex))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** GE workdir: ", s_ge_dir, collapse = ""))
+      # archive directory
+      s_arch_dir <- file.path(l_plot_opts$arch_dir_stem,
+                              pn_prev_ge_label,
+                              "fbk/work",
+                              breed,
+                              paste0("YearMinus0/compare", sex))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** Archive dir: ", s_arch_dir, collapse = ""))
+
+
+    }
+  }
+
+  # debugging message at the end
+  if (pb_debug)
+    log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+             ps_msg    = " * End of function create_ge_compare_plot_report_fbk")
+
+  # return nothing
+  return(invisible(NULL))
 }
 
 
@@ -188,7 +231,9 @@ get_default_plot_opts_fbk <- function(){
   return(list(ge_dir_stem     = "/qualstorzws01/data_zws/fbk/work",
               arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
               rmd_templ       = "inst/templates/compare_plots.Rmd.template",
-              rmd_report_stem = "ge_plot_report_fbk"))
+              rmd_report_stem = "ge_plot_report_fbk",
+              vec_breed       = c("bv", "rh"),
+              vec_sex         = c("Bull", "Cow")))
 }
 
 
@@ -230,6 +275,4 @@ get_default_plot_opts_fbk <- function(){
 #                       ps_report_text = "## Comparison Of Plots\nPlots compare estimates of fbk for cows of breed RH between GE-1904 on the left and the current GE-1908 on the right.",
 #                       ps_rmd_report  = 'ge_plot_report_fbk_compareCow_rh.Rmd',
 #                       pb_debug       = TRUE)
-
-
 
