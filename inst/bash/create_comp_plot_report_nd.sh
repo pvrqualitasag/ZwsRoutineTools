@@ -114,13 +114,8 @@ fi
 # Set basic directories and source parameters
 #============================================
 EVAL_DIR=$(dirname $SCRIPT_DIR)
-PROG_DIR=$EVAL_DIR/prog
-PAR_DIR=$EVAL_DIR/par
-source $PAR_DIR/par.par
 log_msg $SCRIPT 'Basic directories and source parameters set'
 log_msg $SCRIPT "EVAL_DIR=$EVAL_DIR"
-log_msg $SCRIPT "PROG_DIR=$PROG_DIR"
-log_msg $SCRIPT "PAR_DIR=$PAR_DIR"
 
 cd $EVAL_DIR
 
