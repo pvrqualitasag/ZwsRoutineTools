@@ -15,7 +15,7 @@ set -o pipefail   # return value of pipeline is value of last command to exit wi
 # ======================================== # ======================================= #
 # global constants                         #                                         #
 # ---------------------------------------- # --------------------------------------- #
-# prog paths                               #                                         #  
+# prog paths                               #                                         #
 ECHO=/bin/echo                             # PATH to echo                            #
 DATE=/bin/date                             # PATH to date                            #
 BASENAME=/usr/bin/basename                 # PATH to basename function               #
@@ -35,10 +35,9 @@ SCRIPT=`$BASENAME ${BASH_SOURCE[0]}`       # Set Script Name variable           
 usage () {
   local l_MSG=$1
   $ECHO "Usage Error: $l_MSG"
-  $ECHO "Usage: $SCRIPT -a <a_example> -b <b_example> -c"
-  $ECHO "  where -a <a_example> ..."
-  $ECHO "        -b <b_example> (optional) ..."
-  $ECHO "        -c (optional) ..."
+  $ECHO "Usage: $SCRIPT -c <current_ge_label> -p <previous_ge_label>"
+  $ECHO "  where -c <current_ge_label> -- label of current genetic evaluation"
+  $ECHO "        -p <previous_ge_label> -- label of previous genetic evaluation"
   $ECHO ""
   exit 1
 }
@@ -61,39 +60,28 @@ log_msg () {
   $ECHO "[${l_RIGHTNOW} -- ${l_CALLER}] $l_MSG"
 }
 
+
+### # ====================================================================== #
+### # Main part of the script starts here ...
+start_msg
+
 ### # ====================================================================== #
 ### # Use getopts for commandline argument parsing ###
 ### # If an option should be followed by an argument, it should be followed by a ":".
 ### # Notice there is no ":" after "h". The leading ":" suppresses error messages from
 ### # getopts. This is required to get my unrecognized option code to work.
-a_example=""
-b_example=""
-c_example=""
-while getopts ":a:b:ch" FLAG; do
+CURGE=""
+PREVGE=""
+while getopts ":c:p:h" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
       ;;
-    a)
-      a_example=$OPTARG
-# OR for files
-#      if test -f $OPTARG; then
-#        a_example=$OPTARG
-#      else
-#        usage "$OPTARG isn't a regular file"
-#      fi
-# OR for directories
-#      if test -d $OPTARG; then
-#        a_example=$OPTARG
-#      else
-#        usage "$OPTARG isn't a directory"
-#      fi
-      ;;
-    b)
-      b_example=$OPTARG
-      ;;
     c)
-      c_example="c_example_value"
+      CURGE=$OPTARG
+      ;;
+    p)
+      PREVGE=$OPTARG
       ;;
     :)
       usage "-$OPTARG requires an argument"
@@ -107,17 +95,39 @@ done
 shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
 
 # Check whether required arguments have been defined
-if test "$a_example" == ""; then
-  usage "-a a_example not defined"
+if test "$CURGE" == ""; then
+  usage "-c <current_ge_label> not defined"
+fi
+
+if test "$PREVGE" == ""; then
+  usage "-p <previous_ge_label> not defined"
 fi
 
 
 
-### # ====================================================================== #
-### # Main part of the script starts here ...
-start_msg
+# Set basic directories and source parameters
+#============================================
+EVAL_DIR=$(dirname $SCRIPT_DIR)
+PROG_DIR=$EVAL_DIR/prog
+PAR_DIR=$EVAL_DIR/par
+source $PAR_DIR/par.par
+log_msg $SCRIPT 'Basic directories and source parameters set'
+log_msg $SCRIPT "EVAL_DIR=$EVAL_DIR"
+log_msg $SCRIPT "PROG_DIR=$PROG_DIR"
+log_msg $SCRIPT "PAR_DIR=$PAR_DIR"
 
-### # Continue to put your code here
+cd $EVAL_DIR
+
+# Check whether devtools is installed
+# is.element(c("devtools", "R.utils"), installed.packages())
+Rscript -e 'vec_req_cran_pkg <- c("devtools", "R.utils", "fs");vec_pkgidx_to_install <- (!is.element(vec_req_cran_pkg, installed.packages()));install.packages(vec_req_cran_pkg[vec_pkgidx_to_install], lib = "/home/zws/lib/R/library", repos="https://cran.rstudio.com")'
+
+# check whether zwsroutinetools are installed
+Rscript -e 'if (!is.element("zwsroutinetools", installed.packages())) devtools::install_github("pvrqualitasag/zwsroutinetools", lib = "/home/zws/lib/R/library")'
+
+# create the comparison report
+Rscript -e "zwsroutinetools::create_ge_compare_plot_report_fbk(pn_cur_ge_label=$CURGE, pn_prev_ge_label = $PREVGE, pb_debug=TRUE)"
+
 
 
 
@@ -136,7 +146,7 @@ end_msg
 
 =head1 NAME
 
-    - 
+    -
 
 =head1 SYNOPSIS
 

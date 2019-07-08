@@ -80,7 +80,19 @@ create_ge_plot_report <- function(ps_gedir,
   if (!dir.exists(s_trgdir))
     stop("[ERROR -- create_ge_plot_report] Cannot create target directory: ", s_trgdir, "\n")
 
-  # rename the template into the result report
+  # if the pdf report and the rmd sources exist, delete them first
+  s_pdf_report <- fs::path_ext_set(fs::path_ext_remove(ps_rmd_report), "pdf")
+  if (file.exists(s_pdf_report)){
+    fs::file_delete(s_pdf_report)
+    if (pb_debug) cat(" * Deleted existing pdf report: ", s_pdf_report, "\n")
+  }
+  # remove existing rmd source
+  if (file.exists(ps_rmd_report)){
+    fs::file_delete(ps_rmd_report)
+    if (pb_debug) cat(" * Deleted existing rmd report source: ", ps_rmd_report, "\n")
+  }
+
+  # start with a new rmd rouce report by renaming the template into the result report
   file.copy(from = ps_templ, to = ps_rmd_report)
 
   # add the report text to the report
@@ -128,10 +140,7 @@ create_ge_plot_report <- function(ps_gedir,
   cat("\n```{r}\n sessioninfo::session_info()\n```\n\n", file = ps_rmd_report, append = TRUE)
   # render the generated Rmd file
   rmarkdown::render(input = ps_rmd_report)
-  # move pdf of report to ps_ge_dir
-  s_pdf_report <- fs::path_ext_set(fs::path_ext_remove(ps_rmd_report), "pdf")
-  if (pb_debug) cat(" * Moving report ", s_pdf_report, " to: ", ps_gedir, "\n")
-  fs::file_move(s_pdf_report, ps_gedir)
+
   # remove report source
   if (pb_debug) cat(" * Removing report rmd source ", ps_rmd_report, " to: ", ps_gedir, "\n")
   fs::file_delete(ps_rmd_report)
@@ -243,7 +252,7 @@ create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
                  ps_msg    = paste0(" ** Path to report created: ", s_rep_path))
 
       # create the report
-      create_ge_plot_report(ps_gedir       = s_ge_dir,
+      create_ge_plot_report(ps_gedir      = s_ge_dir,
                            ps_archdir     = s_arch_dir,
                            ps_trgdir      = s_trg_dir,
                            ps_templ       = ps_template,

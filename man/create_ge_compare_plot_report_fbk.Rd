@@ -27,7 +27,8 @@ group.
 \examples{
 \dontrun{
 create_ge_compare_plot_report_fbk(pn_cur_ge_label  = 1908,
-                                  pn_prev_ge_label = 1904)
+                                  pn_prev_ge_label = 1904,
+                                  pb_debug = TRUE)
 }
 
 }
