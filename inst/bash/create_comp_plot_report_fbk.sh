@@ -2,7 +2,7 @@
 ###
 ###
 ###
-###   Purpose:   Creation of comparison plot report
+###   Purpose:   Creation of comparison plot report for FBK
 ###   started:   2019-07-08 10:48:12 (pvr)
 ###
 ### ###################################################################### ###

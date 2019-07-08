@@ -24,3 +24,20 @@ get_default_plot_opts_fbk <- function(){
               vec_breed       = c("bv", "rh"),
               vec_sex         = c("Bull", "Cow")))
 }
+
+
+#' @title Default Plot Options For ND
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Nutzungsdauer (ND).
+#'
+get_default_plot_opts_nd <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/nd/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_nd",
+              vec_breed       = c("bv", "rh")))
+}
