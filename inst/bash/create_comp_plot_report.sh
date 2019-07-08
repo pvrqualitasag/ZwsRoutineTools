@@ -35,9 +35,10 @@ SCRIPT=`$BASENAME ${BASH_SOURCE[0]}`       # Set Script Name variable           
 usage () {
   local l_MSG=$1
   $ECHO "Usage Error: $l_MSG"
-  $ECHO "Usage: $SCRIPT -c <current_ge_label> -p <previous_ge_label>"
+  $ECHO "Usage: $SCRIPT -c <current_ge_label> -p <previous_ge_label> -u (optional, if package update is needed)"
   $ECHO "  where -c <current_ge_label> -- label of current genetic evaluation"
   $ECHO "        -p <previous_ge_label> -- label of previous genetic evaluation"
+  $ECHO "        -u (optional, if package update is needed)"
   $ECHO ""
   exit 1
 }
@@ -72,16 +73,20 @@ start_msg
 ### # getopts. This is required to get my unrecognized option code to work.
 CURGE=""
 PREVGE=""
-while getopts ":c:p:h" FLAG; do
+PACKAGEUPDATE=""
+while getopts ":c:p:uh" FLAG; do
   case $FLAG in
-    h)
+    h) # produce usage message
       usage "Help message for $SCRIPT"
       ;;
-    c)
+    c) # specify label of current GE
       CURGE=$OPTARG
       ;;
-    p)
+    p) # specify label of previous GE
       PREVGE=$OPTARG
+      ;;
+    u) # specify whether update of package zwsroutine is needed
+      PACKAGEUPDATE=TRUE
       ;;
     :)
       usage "-$OPTARG requires an argument"
@@ -122,8 +127,15 @@ cd $EVAL_DIR
 # is.element(c("devtools", "R.utils"), installed.packages())
 Rscript -e 'vec_req_cran_pkg <- c("devtools", "R.utils", "fs");vec_pkgidx_to_install <- (!is.element(vec_req_cran_pkg, installed.packages()));install.packages(vec_req_cran_pkg[vec_pkgidx_to_install], lib = "/home/zws/lib/R/library", repos="https://cran.rstudio.com")'
 
-# check whether zwsroutinetools are installed
-Rscript -e 'if (!is.element("zwsroutinetools", installed.packages())) devtools::install_github("pvrqualitasag/zwsroutinetools", lib = "/home/zws/lib/R/library")'
+# in case package update was specified, then update, otherwise only if package is not available
+if [ "$PACKAGEUPDATE" == "TRUE" ]
+then
+  # update anyway
+  Rscript -e 'devtools::install_github("pvrqualitasag/zwsroutinetools", lib = "/home/zws/lib/R/library")'
+else
+  # check whether zwsroutinetools are installed
+  Rscript -e 'if (!is.element("zwsroutinetools", installed.packages())) devtools::install_github("pvrqualitasag/zwsroutinetools", lib = "/home/zws/lib/R/library")'
+fi
 
 # create the comparison report
 Rscript -e "zwsroutinetools::create_ge_compare_plot_report_fbk(pn_cur_ge_label=$CURGE, pn_prev_ge_label = $PREVGE, pb_debug=TRUE)"
