@@ -164,7 +164,8 @@ create_ge_plot_report <- function(ps_gedir,
 #' @examples
 #' \dontrun{
 #' create_ge_compare_plot_report_fbk(pn_cur_ge_label  = 1908,
-#'                                   pn_prev_ge_label = 1904)
+#'                                   pn_prev_ge_label = 1904,
+#'                                   pb_debug = TRUE)
 #' }
 #'
 #' @export create_ge_compare_plot_report_fbk
@@ -235,14 +236,20 @@ create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
         log_info(ps_caller = "create_ge_compare_plot_report_fbk",
                  ps_msg    = paste0(" ** Target directory for restored plots: ", s_trg_dir))
 
+      # specify the name of the report file
+      s_rep_path <- file.path(s_ge_dir, paste0('ge_plot_report_fbk_compare', sex, '_', breed, '.Rmd', collapse = ''))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** Path to report created: ", s_rep_path))
+
       # create the report
-      # create_ge_plot_report(ps_gedir       = s_ge_dir,
-      #                       ps_archdir     = s_arch_dir,
-      #                       ps_trgdir      = s_trg_dir,
-      #                       ps_templ       = ps_template,
-      #                       ps_report_text = s_report_text,
-      #                       ps_rmd_report  = paste0('ge_plot_report_fbk_compare', sex, '_', breed, '.Rmd', collapse = ''),
-      #                       pb_debug       = TRUE)
+      create_ge_plot_report(ps_gedir       = s_ge_dir,
+                           ps_archdir     = s_arch_dir,
+                           ps_trgdir      = s_trg_dir,
+                           ps_templ       = ps_template,
+                           ps_report_text = s_report_text,
+                           ps_rmd_report  = s_rep_path,
+                           pb_debug       = TRUE)
     }
   }
 
@@ -256,21 +263,7 @@ create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
 }
 
 
-## -- Default Plot Options for different traits --- ###
 
-#' @title Default Plot Options For FBK
-#'
-#' @description
-#'
-get_default_plot_opts_fbk <- function(){
-  # return list of default options
-  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/fbk/work",
-              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
-              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
-              rmd_report_stem = "ge_plot_report_fbk",
-              vec_breed       = c("bv", "rh"),
-              vec_sex         = c("Bull", "Cow")))
-}
 
 
 ### # Testing stuff
