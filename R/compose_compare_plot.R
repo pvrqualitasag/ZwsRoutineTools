@@ -363,7 +363,7 @@ create_ge_compare_plot_report_nd <- function(pn_cur_ge_label,
                ps_msg    = paste0(" ** Target directory for restored plots: ", s_trg_dir))
 
     # specify the name of the report file
-    s_rep_path <- file.path(s_ge_dir, paste0('ge_plot_report_nd_compare', breed, '.Rmd', collapse = ''))
+    s_rep_path <- file.path(s_ge_dir, paste0('ge_plot_report_nd_compare_', breed, '.Rmd', collapse = ''))
     if (pb_debug)
       log_info(ps_caller = "create_ge_compare_plot_report_nd",
                ps_msg    = paste0(" ** Path to report created: ", s_rep_path))
