@@ -156,7 +156,11 @@ create_ge_plot_report <- function(ps_gedir,
 #' with the plots of the previous GE are constructed for a given trait
 #' group.
 #'
+#' @param pn_cur_ge_label label of current genetic evaluation (GE)
+#' @param pn_prev_ge_label label of previous GE
+#' @param ps_template template document for report
 #' @param pl_plot_opts list of options specifying input for plot report creator
+#' @param pb_debug flag whether debug output should be shown
 #' @examples
 #' \dontrun{
 #' create_ge_compare_plot_report_fbk(pn_cur_ge_label  = 1908,
@@ -166,17 +170,25 @@ create_ge_plot_report <- function(ps_gedir,
 #' @export create_ge_compare_plot_report_fbk
 create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
                                               pn_prev_ge_label,
+                                              ps_template  = system.file("templates", "compare_plots.Rmd.template", package = 'zwsroutinetools'),
                                               pl_plot_opts = NULL,
                                               pb_debug     = FALSE){
   # debugging message at the beginning
-  if (pb_debug)
+  if (pb_debug) {
     log_info(ps_caller = "create_ge_compare_plot_report_fbk",
              ps_msg    = " * Start of function create_ge_compare_plot_report_fbk")
+    log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+             ps_msg    = paste0(" * Label of current GE: ", pn_cur_ge_label))
+    log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+             ps_msg    = paste0(" * Label of previous GE: ", pn_prev_ge_label))
+  }
+
   # if no options are specified, we have to get the default options
   l_plot_opts <- pl_plot_opts
   if (is.null(l_plot_opts)){
     l_plot_opts <- get_default_plot_opts_fbk()
   }
+
 
   # loop over breeds
   for (breed in l_plot_opts$vec_breed){
@@ -206,7 +218,31 @@ create_ge_compare_plot_report_fbk <- function(pn_cur_ge_label,
         log_info(ps_caller = "create_ge_compare_plot_report_fbk",
                  ps_msg    = paste0(" ** Archive dir: ", s_arch_dir, collapse = ""))
 
+      # Report text appears in all reports of this trait before the plots are drawn
+      s_report_text  <- paste0('## Comparison Of Plots\nPlots compare estimates of FBK for ', tolower(sex),
+                               ' of breed ', breed,
+                               ' between GE-run ', pn_prev_ge_label,
+                               ' on the left and the current GE-run ', pn_cur_ge_label,
+                               ' on the right.', collapse = "")
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** Report text: ", s_report_text))
 
+      # target directory
+      l_arch_dir_split <- fs::path_split(s_arch_dir)
+      s_trg_dir <- file.path(pn_prev_ge_label, l_arch_dir_split[[1]][length(l_arch_dir_split[[1]])])
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_fbk",
+                 ps_msg    = paste0(" ** Target directory for restored plots: ", s_trg_dir))
+
+      # create the report
+      # create_ge_plot_report(ps_gedir       = s_ge_dir,
+      #                       ps_archdir     = s_arch_dir,
+      #                       ps_trgdir      = s_trg_dir,
+      #                       ps_templ       = ps_template,
+      #                       ps_report_text = s_report_text,
+      #                       ps_rmd_report  = paste0('ge_plot_report_fbk_compare', sex, '_', breed, '.Rmd', collapse = ''),
+      #                       pb_debug       = TRUE)
     }
   }
 
@@ -230,7 +266,7 @@ get_default_plot_opts_fbk <- function(){
   # return list of default options
   return(list(ge_dir_stem     = "/qualstorzws01/data_zws/fbk/work",
               arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
-              rmd_templ       = "inst/templates/compare_plots.Rmd.template",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_fbk",
               vec_breed       = c("bv", "rh"),
               vec_sex         = c("Bull", "Cow")))

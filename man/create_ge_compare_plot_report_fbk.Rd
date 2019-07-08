@@ -5,10 +5,19 @@
 \title{Comparison Plot Creator Function For FBK}
 \usage{
 create_ge_compare_plot_report_fbk(pn_cur_ge_label, pn_prev_ge_label,
-  pl_plot_opts = NULL, pb_debug = FALSE)
+  ps_template = system.file("templates", "compare_plots.Rmd.template",
+  package = "zwsroutinetools"), pl_plot_opts = NULL, pb_debug = FALSE)
 }
 \arguments{
+\item{pn_cur_ge_label}{label of current genetic evaluation (GE)}
+
+\item{pn_prev_ge_label}{label of previous GE}
+
+\item{ps_template}{template document for report}
+
 \item{pl_plot_opts}{list of options specifying input for plot report creator}
+
+\item{pb_debug}{flag whether debug output should be shown}
 }
 \description{
 Comparison reports containing all generated plots of a GE side-by-side
