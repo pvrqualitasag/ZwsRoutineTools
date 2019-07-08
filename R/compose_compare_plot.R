@@ -86,6 +86,12 @@ create_ge_plot_report <- function(ps_gedir,
     fs::file_delete(s_pdf_report)
     if (pb_debug) cat(" * Deleted existing pdf report: ", s_pdf_report, "\n")
   }
+  # remove existing tex sources
+  s_tex_report <- fs::path_ext_set(fs::path_ext_remove(ps_rmd_report), "tex")
+  if (file.exists(s_tex_report)){
+    fs::file_delete(s_tex_report)
+    if (pb_debug) cat(" * Deleted existing tex report sources: ", s_tex_report, "\n")
+  }
   # remove existing rmd source
   if (file.exists(ps_rmd_report)){
     fs::file_delete(ps_rmd_report)
@@ -141,9 +147,11 @@ create_ge_plot_report <- function(ps_gedir,
   # render the generated Rmd file
   rmarkdown::render(input = ps_rmd_report)
 
-  # remove report source
-  if (pb_debug) cat(" * Removing report rmd source ", ps_rmd_report, " to: ", ps_gedir, "\n")
+  # remove report sources
+  if (pb_debug) cat(" * Removing report rmd source ", ps_rmd_report, "\n")
   fs::file_delete(ps_rmd_report)
+  if (pb_debug) cat(" * Removing report tex source ", s_tex_report, "\n")
+  fs::file_delete(s_tex_report)
 
   # remove target root dir
   if (pb_debug) cat(" * Delete target root directory: ", s_trgroot, "\n")
