@@ -1,0 +1,27 @@
+---
+title: "Comparison Plot Reports"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparison Plot Reports}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Comparison plot reports are pdf-documents that summarize a comparison between a series of plots that are drawn for two different genetic evaluation (GE) routine runs. The corresponding plots from the two GE-runs are drawn side-by-side allowing for a seamless comparison of  the results of two different GE runs. 
+
+
+## Genetic Evaluation (GE)
+GE analysis uses linear mixed effect models which are mostly animal or sometimes also sire models. In animal models, the breeding value of an animal is included into the model as random effect. Sire models contain random sire effects. Breeding values are realised solutions of the random effects. Between two successive GE-runs the solutions for most animals included in the analysis are supposed to stay constant. As a consequence of that plots of breeding values from two different GE-runs would result mostly points that are aligned along the 45-degree line. 
+
+
+## Quality Measure
+One of the quality measure that is used are the plots of the predicted breeding values from two different runs. 
