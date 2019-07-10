@@ -8,7 +8,7 @@
 ### ################################################################# ###
 
 SCRIPT=$(basename ${BASH_SOURCE[0]})
-TRAIT=fbk
+TRAIT=mar
 
 ### # functions related to logging
 log_msg () {
@@ -30,7 +30,7 @@ for breed in bv rh
 do
   for sex in Bull Cow
   do
-    qlmanage -p /Volumes/data_zws/${TRAIT}/work/${breed}/YearMinus0/compare${sex}/ge_plot_report_${TRAIT}_compare${sex}_${breed}.pdf
+    qlmanage -p /Volumes/data_zws/health/${TRAIT}/work/${breed}/zws/compare${sex}/ge_plot_report_${TRAIT}_compare${sex}_${breed}.pdf
     sleep 2
   done
 done

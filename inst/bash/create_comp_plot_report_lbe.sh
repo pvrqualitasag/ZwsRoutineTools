@@ -2,7 +2,7 @@
 ###
 ###
 ###
-###   Purpose:   Creation of comparison plot report for FBK
+###   Purpose:   Creation of comparison plot report for LBE
 ###   started:   2019-07-08 10:48:12 (pvr)
 ###
 ### ###################################################################### ###
@@ -29,7 +29,7 @@ SCRIPT=`$BASENAME ${BASH_SOURCE[0]}`       # Set Script Name variable           
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) # define script directory   #
 # ---------------------------------------- # --------------------------------------- #
 # trait                                    #                                         #
-TRAIT=fbk                                  # Trait abbreviation                      #
+TRAIT=lbe                                  # Trait abbreviation                      #
 # ======================================== # ======================================= #
 
 

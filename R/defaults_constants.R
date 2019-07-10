@@ -26,6 +26,8 @@ get_default_plot_opts_fbk <- function(){
 }
 
 
+## -- Defaults for ND
+
 #' @title Default Plot Options For ND
 #'
 #' @description
@@ -41,3 +43,44 @@ get_default_plot_opts_nd <- function(){
               rmd_report_stem = "ge_plot_report_nd",
               vec_breed       = c("bv", "rh")))
 }
+
+
+## -- Defaults for MAR
+
+#' @title Default Plot Options For MAR
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Mastitisresistenz (MAR).
+#'
+get_default_plot_opts_mar <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/health/mar/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_mar",
+              vec_breed       = c("bv", "rh"),
+              vec_sex         = c("Bull", "Cow")))
+}
+
+
+## -- Defaults for LBE
+
+#' @title Default Plot Options For LBE
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Lineare Beschreibung (LBE).
+#'
+get_default_plot_opts_lbe <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/lbe/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_lbe",
+              vec_breed       = c("bv", "je"),
+              vec_sex         = c("Bull", "Cow")))
+}
+

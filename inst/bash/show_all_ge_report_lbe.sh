@@ -8,7 +8,7 @@
 ### ################################################################# ###
 
 SCRIPT=$(basename ${BASH_SOURCE[0]})
-TRAIT=fbk
+TRAIT=lbe
 
 ### # functions related to logging
 log_msg () {
