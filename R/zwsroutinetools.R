@@ -5,6 +5,10 @@
 #' focus categories. So far just one category of generating reports of comparison
 #' with previous GE runs.
 #'
+#' @section Comparison Plot Reports
+#'
+#' @section Installation
+#' The package is installed using `devtools::install_github()` functionality.
 #'
 #' @docType package
 #' @name zwsroutinetools
