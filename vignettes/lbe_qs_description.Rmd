@@ -19,8 +19,7 @@ knitr::opts_chunk$set(
 The following list of points is taken from https://qualitasag.atlassian.net/wiki/spaces/ZWS/pages/250314857/Anleitung+ZWS+LBE+bv+je+und+rh#AnleitungZWSLBEbv,jeundrh-LBE_Qualitaetssicherung and it describes the logfiles that need to be taken into account for QA. 
 
 1. Nach ca. 1 Stunde nach dem Start von EVAL_DIR/prog/chef.sh verschiedene Outputs und Log-Dateien prüfen und mit den entsprechenden Dateien aus der vorhergehenden Auswertung vergleichen. Diese Dateien sind in `EVAL_DIR/data/${Zuchtorganisation}` und heissen:
-    + mehrfacheLBEs.txt
-    + Duplikate der ZO melden
+    + mehrfacheLBEs.txt: Duplikate der ZO melden
     + checkSchema.log: Hier ist insbesondere ist darauf zu achten, dass es bei allen Schema, bei denen es Datenzuwachs geben sollte, diesen auch tatsächlich im üblichen Masse gibt.
     + abgelehnteLBEsWegenCheckSchema.csv: Falls es eine grosse Zunahme an Einträgen in dieser Datei gibt, weist das auf ein neues Schema oder auf Fehler/Ungenauigkeiten in den Dateien mit Schemaspezifikationen hin.
     + selectAnimalsOfBreed_*.log
