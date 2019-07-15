@@ -29,6 +29,6 @@ fi
 breed=rh
 for sex in Bull Cow
 do
-  qlmanage -p /Volumes/data_zws/${TRAIT}/work/${breed}/YearMinus0/compare${sex}/ge_plot_report_${TRAIT}_compare_${sex}_${breed}.pdf
+  qlmanage -p /Volumes/data_zws/${TRAIT}/work/${breed}/compare${sex}/ge_plot_report_${TRAIT}_compare_${sex}_${breed}.pdf
   sleep 2
 done
