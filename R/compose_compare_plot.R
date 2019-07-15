@@ -673,7 +673,7 @@ create_ge_compare_plot_report_lbe_rh <- function(pn_cur_ge_label,
                  ps_msg    = paste0(" ** Loop for sex: ", sex, collapse = ""))
 
       # put together all directory names, start with GE working directory
-      s_ge_dir <- file.path(l_plot_opts$ge_dir_stem, breed, paste0("YearMinus0/compare", sex, collapse = ""))
+      s_ge_dir <- file.path(l_plot_opts$ge_dir_stem, breed, paste0("compare", sex, collapse = ""))
       if (pb_debug)
         log_info(ps_caller = "create_ge_compare_plot_report_lbe_rh",
                  ps_msg    = paste0(" ** GE workdir: ", s_ge_dir, collapse = ""))
@@ -681,7 +681,7 @@ create_ge_compare_plot_report_lbe_rh <- function(pn_cur_ge_label,
       s_arch_dir <- file.path(l_plot_opts$arch_dir_stem,
                               pn_prev_ge_label,
                               "lbe_rh/work",
-                              breed,paste0("YearMinus0/compare", sex, collapse = ""))
+                              breed,paste0("compare", sex, collapse = ""))
       if (pb_debug)
         log_info(ps_caller = "create_ge_compare_plot_report_lbe_rh",
                  ps_msg    = paste0(" ** Archive dir: ", s_arch_dir, collapse = ""))
