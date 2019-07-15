@@ -27,3 +27,10 @@ of such a comparison is a report that is called comparison plot report.
 
 Installation: The package is installed using `devtools::install_github()` functionality.
 }
+\examples{
+\dontrun{
+# Installation and Update
+devtools::install_github("pvrqualitasag/zwsroutinetools")
+}
+
+}

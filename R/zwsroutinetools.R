@@ -22,6 +22,12 @@
 #'
 #' Installation: The package is installed using `devtools::install_github()` functionality.
 #'
+#' @examples
+#' \dontrun{
+#' # Installation and Update
+#' devtools::install_github("pvrqualitasag/zwsroutinetools")
+#' }
+#'
 #' @docType package
 #' @name zwsroutinetools
 NULL

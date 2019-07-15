@@ -94,7 +94,7 @@ get_default_plot_opts_lbe <- function(){
 #' to produce the comparison plot report for the trait group
 #' Lineare Beschreibung for RH (LBE_RH).
 #'
-get_default_plot_opts_lbe <- function(){
+get_default_plot_opts_lbe_rh <- function(){
   # return list of default options
   return(list(ge_dir_stem     = "/qualstorzws01/data_zws/lbe_rh/work",
               arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
