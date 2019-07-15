@@ -1,14 +1,26 @@
-#' zwsroutinetools: A package providing tools for a Genetic Evaluation (GE) Routine
+#' @title zwsroutinetools: Tools for Routine Genetic Evaluations (GE)
 #'
+#' @description
 #' The package `zwsroutinetools` provides R-functions and shell-scripts that are
-#' considered to be useful. The set of provided tools can be grouped into different
-#' focus categories. So far just one category of generating reports of comparison
-#' with previous GE runs.
+#' considered to be useful in the context of routine genetic evaluations. The set
+#' of provided tools can be grouped into different focus categories. So far, we
+#' are focusing on providing tools to generate report documents for the purpose
+#' of quality assurence of the evaluations.
 #'
-#' @section Comparison Plot Reports
+#' An important quality assurance tool for any given genetic evaluation are the
+#' scatter plots showing the results of two subsequent evaluations. Together with
+#' the plot the correlation between the results of the two evaluations are computed.
+#' An important quality criterion of any new evaluation is that the changes of
+#' the results when compared to the previous evaluation need to be very small.
+#' As a consequence most points defined by the two evaluation results from the
+#' two subsequent evaluations need to lay on the 45-degree line in the first
+#' plotting quadrant. Furthermore the correlation between the results of the
+#' two subsequent evaluations must be greater than .99. Such scatter plots
+#' of results are done for each evaluation. Therefore it might be helpful
+#' to compare the scatter plots of two subsequent evaluation runs. The result
+#' of such a comparison is a report that is called comparison plot report.
 #'
-#' @section Installation
-#' The package is installed using `devtools::install_github()` functionality.
+#' Installation: The package is installed using `devtools::install_github()` functionality.
 #'
 #' @docType package
 #' @name zwsroutinetools

@@ -1,14 +1,16 @@
 Package: zwsroutinetools
-Title: What the Package Does (one line, title case)
+Title: Tools for Routine Genetic Evaluations
 Version: 0.0.0.9000
 Author: "Peter von Rohr <peter.vonrohr@qualitasag.ch> [aut, cre]"
-Description: What the package does (one paragraph).
+Description: The package zwsroutinetools provides tools consisting of R-functions and bash scripts useful for quality assurance of a routine genetic evaluation run.
 Depends: R (>= 3.5.2)
 License: MIT
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    R.utils,
+    fs
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

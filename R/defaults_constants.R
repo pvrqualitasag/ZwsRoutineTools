@@ -85,6 +85,26 @@ get_default_plot_opts_lbe <- function(){
 }
 
 
+## -- Defaults for LBE_RH
+
+#' @title Default Plot Options For LBE_RH
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Lineare Beschreibung for RH (LBE_RH).
+#'
+get_default_plot_opts_lbe <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/lbe_rh/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_lbe_rh",
+              vec_breed       = c("rh"),
+              vec_sex         = c("Bull", "Cow")))
+}
+
+
 
 ## -- Defaults for PROD
 

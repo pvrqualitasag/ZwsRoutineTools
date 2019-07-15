@@ -5,9 +5,15 @@
 \title{Default Plot Options For LBE}
 \usage{
 get_default_plot_opts_lbe()
+
+get_default_plot_opts_lbe()
 }
 \description{
 Return a list with specific defaults and constants that are used
 to produce the comparison plot report for the trait group
 Lineare Beschreibung (LBE).
+
+Return a list with specific defaults and constants that are used
+to produce the comparison plot report for the trait group
+Lineare Beschreibung for RH (LBE_RH).
 }
