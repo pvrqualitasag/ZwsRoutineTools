@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+## QA Requirements Taken From the GE-Recipe
 The following list of points is taken from https://qualitasag.atlassian.net/wiki/spaces/ZWS/pages/250314857/Anleitung+ZWS+LBE+bv+je+und+rh#AnleitungZWSLBEbv,jeundrh-LBE_Qualitaetssicherung and it describes the logfiles that need to be taken into account for QA. 
 
 1. Nach ca. 1 Stunde nach dem Start von EVAL_DIR/prog/chef.sh verschiedene Outputs und Log-Dateien prüfen und mit den entsprechenden Dateien aus der vorhergehenden Auswertung vergleichen. Diese Dateien sind in `EVAL_DIR/data/${Zuchtorganisation}` und heissen:
@@ -31,3 +32,40 @@ The following list of points is taken from https://qualitasag.atlassian.net/wiki
 3. Vergleichsgrafiken und -Tabellen analysieren.
 4. In der Datei /qualstorzws01/data_zws/zwKontrolle/ZuwachsDatenZWS_BV_JE_RH.xls die Anzahl Records der Input- und Output-Dateien eintragen sowie Differenzen zur vorhergehenden ZWS rechnen.
 
+
+## Tool Development
+### Number of duplicate LBE records
+The first thing that we have to check are the number of duplicates. The number of duplicate information corresponds to the number of lines in the file `mehrfacheLBEs.txt`. The number of lines in the file can be determined by using the `wc -l` command on the shell. For a given duplicate logfile the number of lines can be determined by
+
+```{r}
+s_dup_lf <- system.file("extdata/lbe-logs/mehrfacheLBEs.txt", package = 'zwsroutinetools')
+s_nr_dupl <- system(paste0('wc -l ', s_dup_lf), intern = TRUE)
+s_nr_dupl<- gsub(pattern = '^\\s{1,}', replacement = '', s_nr_dupl)
+n_nr_dupl <- as.numeric(unlist(strsplit(s_nr_dupl, split = '\\s{1,}'))[1])
+cat("The number of duplicate LBEs is: ", n_nr_dupl, "\n")
+```
+
+This is converted into the following function
+
+```{r}
+get_nr_line_file <- function(ps_file_path){
+  # check whether the file exists
+  if (!file.exists(ps_file_path)) stop("ERROR: Cannot find file: ", ps_file_path)
+  # do the line counting with wc -l
+  s_nr_dupl <- system(paste('wc -l', ps_file_path), intern = TRUE)
+  # replace leading spaces from result
+  s_nr_dupl<- gsub(pattern = '^\\s{1,}', replacement = '', s_nr_dupl)
+  # return the number of lines corresponding to the first element of the result as a number
+  return(as.numeric(unlist(strsplit(s_nr_dupl, split = '\\s{1,}'))[1]))
+}
+```
+
+The test with the above used file is done as
+
+```{r}
+cat("The number of duplicate LBEs is: ", get_nr_line_file(ps_file_path = s_dup_lf), "\n")
+```
+
+
+### Data Increments over Schemas
+The logfile `checkSchema.log` contains information about the distribution of the data records accross the different recording schemas. 

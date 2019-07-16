@@ -21,6 +21,8 @@
 #' of such a comparison is a report that is called comparison plot report.
 #'
 #' Installation: The package is installed using `devtools::install_github()` functionality.
+#' The bash scripts the run the creation of the reports must be copied into
+#' the appropriate program or script directory.
 #'
 #' @examples
 #' \dontrun{
