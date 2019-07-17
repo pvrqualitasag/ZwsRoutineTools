@@ -1,0 +1,35 @@
+---
+title: "Script Run-Times Based Logfiles"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Script Run-Times Based Logfiles}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r examplelog, echo=FALSE}
+s_log_path <- system.file("extdata/timing-log/prepPhaeprep.log", package = 'zwsroutinetools')
+con_log <- file(description = s_log_path)
+vec_log <- readLines(con = con_log)
+close(con = con_log)
+```
+
+Based on our effort to standardize the scripts running during a GE-analysis, every script should print a start message and an end message. The minimal version of a start message or an end message is just the date and time. An example of such start and end messages is shown below. 
+
+```{r showfirstline, echo=FALSE}
+cat(vec_log[1], "\n")
+cat(vec_log[length(vec_log)], "\n")
+```
+
+## Compute Runtimes
+The difference between the two times shown in the start and end messages can be used to get a basic estimate of the runtime of a script. 
+
