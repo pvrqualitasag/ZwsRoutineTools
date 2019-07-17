@@ -68,4 +68,19 @@ cat("The number of duplicate LBEs is: ", get_nr_line_file(ps_file_path = s_dup_l
 
 
 ### Data Increments over Schemas
-The logfile `checkSchema.log` contains information about the distribution of the data records accross the different recording schemas. 
+The logfile `checkSchema.log` contains information about the distribution of the data records accross the different recording schemas. To extract the information on the number of records per recording scheme, we have to read the logfile and parse it to find the relevant information.
+
+```{r}
+s_check_log_path <- system.file("extdata/lbe-logs/checkSchema.log", package = 'zwsroutinetools')
+con_log <- file(description = s_check_log_path)
+vec_log <- readLines(con = con_log)
+close(con = con_log)
+# remove empty lines from log file
+vec_idx_empty_lines <- grep(pattern = '^$', vec_log)
+vec_log <- vec_log[-vec_idx_empty_lines]
+# search for lines containing information about number of records per schema
+vec_idx_schema_info <- grep(pattern = '^\\s{1,}Anzahl LBEs aus', vec_log)
+vec_schema_info <- vec_log[vec_idx_schema_info]
+
+```
+
