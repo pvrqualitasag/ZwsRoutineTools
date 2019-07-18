@@ -81,6 +81,77 @@ vec_log <- vec_log[-vec_idx_empty_lines]
 # search for lines containing information about number of records per schema
 vec_idx_schema_info <- grep(pattern = '^\\s{1,}Anzahl LBEs aus', vec_log)
 vec_schema_info <- vec_log[vec_idx_schema_info]
+get_schema_stat <- function(ps_line){
+  vec_line_cont <- unlist(strsplit(ps_line, split = '\\s{1,}'))
+  n_schema_name_idx <- grep(pattern = "Schema", vec_line_cont, fixed = TRUE) + 1
+  return(tibble::tibble(schema = vec_line_cont[n_schema_name_idx], 
+                        nrecords = vec_line_cont[length(vec_line_cont)]))
+}
+```
 
+The above extraction function can be tested for a single line as 
+
+```{r}
+get_schema_stat(vec_schema_info[1])
+```
+
+As the result seams to be ok, we are applying the function to all schema records using the `purrr::map` function. Finally, we are re-grouping the result into a single `tibble`. 
+
+```{r}
+l_result <- purrr::map(vec_schema_info, get_schema_stat)
+tbl_result <- NULL
+for (i in seq_along(l_result)){
+  tbl_result <- dplyr::bind_rows(tbl_result, l_result[[i]])
+}
+```
+
+Re-formating the result tibble into a table leads to 
+
+```{r}
+knitr::kable(tbl_result, booktabs = TRUE)
+```
+
+The complete functionality of extracting the number of records from a logfile is enclosed in a separate function. 
+
+```{r}
+#' Get Schema Statistics from Logfile
+get_schema_stat_from_log <- function(ps_check_log_path, 
+                                     ps_schema_line_pat = '^\\s{1,}Anzahl LBEs aus',
+                                     ps_schema_num_pat  = 'Schema'){
+  #' Helper function to extract tibble with schema name and number of 
+  #'  records for corresponding schema
+  get_schema_stat <- function(ps_line, ps_schema_num_pat){
+   vec_line_cont <- unlist(strsplit(ps_line, split = '\\s{1,}'))
+    n_schema_name_idx <- grep(pattern = ps_schema_num_pat, vec_line_cont, fixed = TRUE) + 1
+    return(tibble::tibble(schema = vec_line_cont[n_schema_name_idx], 
+                          nrecords = vec_line_cont[length(vec_line_cont)]))
+  }
+  # Read the log file into a vector of characters
+  con_log <- file(description = ps_check_log_path)
+  vec_log <- readLines(con = con_log)
+  close(con = con_log)
+  # remove empty lines from log file
+  vec_idx_empty_lines <- grep(pattern = '^$', vec_log)
+  vec_log <- vec_log[-vec_idx_empty_lines]
+  # search for lines containing information about number of records per schema
+  vec_idx_schema_info <- grep(pattern = ps_schema_line_pat, vec_log)
+  vec_schema_info <- vec_log[vec_idx_schema_info]
+  # run the extractor function get_schema_stat for each line of vec_schema_info
+  l_result <- purrr::map(vec_schema_info, get_schema_stat, ps_schema_num_pat)
+  # aggregate list of results into single tibble
+  tbl_result <- NULL
+  for (i in seq_along(l_result)){
+    tbl_result <- dplyr::bind_rows(tbl_result, l_result[[i]])
+  }
+  # return result
+  return(tbl_result)
+}
+```
+
+Testing the created function leads to 
+
+```{r}
+tbl_schema_rec_result <- get_schema_stat_from_log(ps_check_log_path = s_check_log_path)
+knitr::kable(tbl_schema_rec_result, booktabs = TRUE)
 ```
 
