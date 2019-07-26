@@ -1,0 +1,55 @@
+---
+title: "How To Run GS-Jobs"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How To Run GS-Jobs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
+```
+
+
+GS-Jobs are used to estimate SNP-effects in genomic breeding value estimation. For different breeds (rh, si, sf, bv, ob), different traits, different input data (full and reduced) and different estimation quantities (eff or rel) combinations are formed and jobs are defined. In total there are about 1000 different job definitions. 
+
+
+## Prerequisites
+To be able to start the GS-jobs, conventional prediction of breeding values must be finished. 
+
+
+## Constraints
+There is a deadline for when results of GS-jobs must be ready. To meet the deadline it is important to start the GS-jobs on the planed date which is a Friday. When starting the GS-jobs on a Friday gives a weekend to run the jobs. The total time of about 11 days should be enough for the GS-jobs in the ideal case. But this ideal case can only be realized if certain conditions are met. The conditions are mostly related to the very different performance of the different machines and the very different runtimes for the different GS-jobs. Here it is important to follow the rule that the jobs with the largest runtimes are run on the fastest computers, otherwise, the computation time is too high. The problem here is that it is not easy to determine the total computing time for each job. There are some informations in the logfiles, but they are dependent on the computer on which they run.
+
+```{r jobtomachinemapping, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width=640}
+#rmddochelper::use_odg_graphic(ps_path = "odg/jobtomachinemapping.odg")
+knitr::include_graphics(path = "odg/jobtomachinemapping.png")
+```
+
+
+From a technical point of view, it is important to limit the number of jobs that are simultaneously running on any given machine by two parameters. 
+
+1. the number of cores that are available on a given machine. There is not point in submitting more jobs that we have cores, because otherwise a certain amount of the performance must be invested in context switching between the jobs. Our computers typically have something between 32 and 40 cores.
+2. the amount of RAM available on each machine. With the larger SNP chips (150K instead of 50K) the memory requirement of each job increased substantially. Some jobs might use up until 10G. Based on some observations, it is likely that the amount of memory required for each job is highest at the beginning of the job. Therefore, we should not start very many jobs at the same time, because we do not want to use up all memory at the beginning of the runtime of the GS-jobs. It must be avoided that all physical RAM is exhausted because, if that happens the machine starts to swap. Swapping means that some parts of the data in RAM which are not needed are written to the swap disk. Whenever the data on the swap disk is needed again, it is transfered back into RAM. This process of swapping slows down any computation by about a factor of 1000. As a rule of thumb, if a machine starts to swap, we have to kill as many jobs as it takes that all data from the running jobs fit into RAM.  
+
+
+
+## Goal
+The goal is to let the GS-jobs running with as little interaction as possible. That means, at the beginning, we assign each server a number of jobs and they run without any intervention. 
+
+
+## Implementation Ideas
+A first idea is to split the complete list of all jobs into smaller batches of jobs. The size of the batches should be smaller than the number of cores on each of the machines.  
+
+
+## Design Ideas For A Pipeline
+The computation of estimated genomic breeding values is done with a number of steps. By putting the single step in a sequence, the result is a pipeline that works on job-definition files. The job-definition files contain path information about the single compute jobs that must be run by the pipeline. 
+
+

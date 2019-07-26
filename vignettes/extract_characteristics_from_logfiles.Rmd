@@ -1,0 +1,24 @@
+---
+title: "Extract Characteristic Numbers From Logfiles"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extract Characteristic Numbers From Logfiles}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+An important task during the course of a routine GE is to extract characteristic numbers from log files. After the extraction from the logfiles these numbers are entered into spreadsheets or into csv-files. The extraction process is mostly done manually. The problem with these manual processes is that they are error-prone and difficult to reproduce. In what follows, we try to described alternative processes that can be automated and that lead to better reproducibility characteristics. Based on the given descriptions, tools are developed to implement the described procedures.
+
+
+## Characteristic Numbers
+The main purpose of characteristic numbers is quality assurance. 
