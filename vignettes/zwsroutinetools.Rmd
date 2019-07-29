@@ -1,0 +1,20 @@
+---
+title: "zwsroutinetools"
+author: "Peter von Rohr"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{zwsroutinetools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The package `zwsroutinetools` contains utility functions and tools that are useful for working with data and outputs of a routine genetic evaluation (GE) analysis run. 
+

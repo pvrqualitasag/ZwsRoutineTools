@@ -1,0 +1,13 @@
+pandoc: 2.3.1
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  compare_plots: compare_plots.html
+  create_comparison_plot_report: create_comparison_plot_report.html
+  extract_characteristics_from_logfiles: extract_characteristics_from_logfiles.html
+  lbe_qs_description: lbe_qs_description.html
+  literate_bash_programming: literate_bash_programming.html
+  run_gs_jobs: run_gs_jobs.html
+  runtime_from_log: runtime_from_log.html
+  zwsroutinetools: zwsroutinetools.html
+

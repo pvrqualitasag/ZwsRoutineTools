@@ -1,6 +1,9 @@
 Package: zwsroutinetools
 Title: Tools for Routine Genetic Evaluations
 Version: 0.0.0.9000
+Authors@R: person(given = 'Peter', family = 'von Rohr',
+                  email = 'peter.vonrohr@qualitasag.ch',
+                  role = c("aut", "cre"))
 Author: "Peter von Rohr <peter.vonrohr@qualitasag.ch> [aut, cre]"
 Description: The package zwsroutinetools provides tools consisting of R-functions and bash scripts useful for quality assurance of a routine genetic evaluation run.
 Depends: R (>= 3.5.2)

@@ -1,0 +1,31 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  fig.align = 'center',
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-")
+```
+
+
+# zwsroutinetools <img src="man/figures/logo.png" align="right" />
+
+Utility tools helpful in a GE-routine.
+
+
+## Installation
+
+The package can only be installed from github
+
+```{r}
+# install.packages("devtools")
+devtools::install_github('pvrqualitasag/zwsroutinetools')
+```
+
+
+## Examples
+Examples that show the usefulness of these tools will follow soon ...
+
