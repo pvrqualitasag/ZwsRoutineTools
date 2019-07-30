@@ -117,21 +117,34 @@ create_ge_plot_report <- function(ps_gedir,
     cat("\n```{r, echo=FALSE, fig.show='hold', out.width='50%'}\n", file = ps_rmd_report, append = TRUE)
     # check whether corresponding plot file existed in archive
     bnf <- basename(f)
+    # path to unzipped plot file in archive
+    bnfarchpath <- file.path(ps_archdir, bnf)
+    # gzipped plotfile
     bnfgz <- paste(bnf, "gz", sep = ".")
-    bnfgzpath <- file.path(ps_archdir, bnfgz)
-    if (file.exists(bnfgzpath)){
+    # path to gzipped plotfile in archive
+    bnfgzarchpath <- file.path(ps_archdir, bnfgz)
+    # path to plotfile in target directory
+    bnftrgpath <- file.path(s_trgdir, bnf)
+    ### # TODO: the following can be refactored into functions that copy and gunzip archive files
+    if (file.exists(bnfgzarchpath)){
       if (pb_debug) cat(" * Found archived plot file: ", bnfgz, " in ", ps_archdir, "\n")
       # copy file from archive
-      if (pb_debug) cat(" * Copy from: ", bnfgzpath, " to ", s_trgdir, "\n")
-      file.copy(from = bnfgzpath, to = s_trgdir)
+      if (pb_debug) cat(" * Copy from: ", bnfgzarchpath, " to ", s_trgdir, "\n")
+      file.copy(from = bnfgzarchpath, to = s_trgdir)
       bnfgztrgpath <- file.path(s_trgdir, bnfgz)
-      bnftrgpath <- file.path(s_trgdir, bnf)
       if (!file.exists(bnftrgpath)){
         if (pb_debug) cat(" * Unzip: ", bnfgztrgpath, "\n")
         R.utils::gunzip(bnfgztrgpath)
       } else {
         if (pb_debug) cat(" * File: ", bnftrgpath, " already exists", "\n")
       }
+      ### # Include extracted file into the report
+      cat(paste0("knitr::include_graphics(path = '", bnftrgpath, "')\n", collapse = ""), file = ps_rmd_report, append = TRUE)
+    } else if (file.exists(bnfarchpath)) {
+      if (pb_debug) cat(" * Found archived plot file: ", bnf, " in ", ps_archdir, "\n")
+      # copy file from archive
+      if (pb_debug) cat(" * Copy from: ", bnfarchpath, " to ", s_trgdir, "\n")
+      file.copy(from = bnfarchpath, to = s_trgdir)
       ### # Include extracted file into the report
       cat(paste0("knitr::include_graphics(path = '", bnftrgpath, "')\n", collapse = ""), file = ps_rmd_report, append = TRUE)
     } else {
@@ -844,6 +857,123 @@ create_ge_compare_plot_report_prod <- function(pn_cur_ge_label,
   return(invisible(NULL))
 }
 
+
+## -- Creator Function for VRDGGOZW ----------------------------------------- ##
+
+#' @title Comparison Plot Report Creator Function For VRDGGOZW
+#'
+#' @description
+#' A comparison plot report containing all generated plots of a GE side-by-side
+#' with the plots from the previous GE are constructed for VRDGGOZW
+#'
+#' @param ps_cur_ge_label label of current genetic evaluation (GE)
+#' @param ps_prev_ge_label label of previous GE
+#' @param ps_prevgsrun_label label of bi-weekly gs-runs before publication date of ps_prev_ge_label
+#' @param ps_template template document for report
+#' @param pl_plot_opts list of options specifying input for plot report creator
+#' @param pb_debug flag whether debug output should be shown
+#' @examples
+#' \dontrun{
+#' create_ge_compare_plot_report_prod(ps_cur_ge_label  = '1908',
+#'                                  ps_prev_ge_label = '1904',
+#'                                  ps_prevgsrun_label = '0719',
+#'                                  pb_debug = TRUE)
+#' }
+#'
+#' @export create_ge_compare_plot_report_vrdggozw
+create_ge_compare_plot_report_vrdggozw <- function(ps_cur_ge_label,
+                                               ps_prev_ge_label,
+                                               ps_prevgsrun_label,
+                                               ps_template  = system.file("templates", "compare_plots.Rmd.template", package = 'zwsroutinetools'),
+                                               pl_plot_opts = NULL,
+                                               pb_debug     = FALSE){
+  # debugging message at the beginning
+  if (pb_debug) {
+    log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+             ps_msg    = " * Start of function create_ge_compare_plot_report_vrdggozw")
+    log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+             ps_msg    = paste0(" * Label of current GE: ", ps_cur_ge_label))
+    log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+             ps_msg    = paste0(" * Label of previous GE: ", ps_prev_ge_label))
+  }
+
+  # if no options are specified, we have to get the default options
+  l_plot_opts <- pl_plot_opts
+  if (is.null(l_plot_opts)){
+    l_plot_opts <- get_default_plot_opts_vrdggozw()
+  }
+
+
+  # loop over breeds
+  for (breed in l_plot_opts$vec_breed){
+    # loop over breeds
+    if (pb_debug)
+      log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+               ps_msg    = paste0(" ** Loop for breed: ", breed, collapse = ""))
+    # loop over types of zw
+    for (zwt in l_plot_opts$vec_zw_type){
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** Loop for zw-type: ", zwt, collapse = ""))
+
+      # put together all directory names, start with GE working directory
+      s_ge_dir <- file.path(l_plot_opts$ge_dir_stem,
+                            paste0(breed, "basis", collapse = ""),
+                            paste0("comp", zwt, collapse = ""))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** GE workdir: ", s_ge_dir, collapse = ""))
+      # archive directory
+      s_arch_dir <- file.path(l_plot_opts$arch_dir_stem,
+                              ps_prev_ge_label,
+                              "calcVRDGGOZW",
+                              paste0("result", ps_prevgsrun_label, collapse = ""),
+                              paste0(breed, "basis", collapse = ""),
+                              paste0("comp", zwt, collapse = ""))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** Archive dir: ", s_arch_dir, collapse = ""))
+
+      # Report text appears in all reports of this trait before the plots are drawn
+      s_report_text  <- paste0('## Comparison Of Plots\nPlots compare estimates of VRDGGOZW for breed ', breed,
+                               ' between GE-run ', ps_prev_ge_label,
+                               ' on the left and the current GE-run ', ps_cur_ge_label,
+                               ' on the right.', collapse = "")
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** Report text: ", s_report_text))
+
+      # target directory
+      l_arch_dir_split <- fs::path_split(s_arch_dir)
+      s_trg_dir <- file.path(ps_prev_ge_label, l_arch_dir_split[[1]][length(l_arch_dir_split[[1]])])
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** Target directory for restored plots: ", s_trg_dir))
+
+      # specify the name of the report file
+      s_rep_path <- file.path(s_ge_dir, paste0('ge_plot_report_vrdggozw_compare_', breed, '_',zwt, '.Rmd', collapse = ''))
+      if (pb_debug)
+        log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+                 ps_msg    = paste0(" ** Path to report created: ", s_rep_path))
+      # create the report
+      create_ge_plot_report(ps_gedir      = s_ge_dir,
+                            ps_archdir     = s_arch_dir,
+                            ps_trgdir      = s_trg_dir,
+                            ps_templ       = ps_template,
+                            ps_report_text = s_report_text,
+                            ps_rmd_report  = s_rep_path,
+                            pb_debug       = TRUE)
+    }
+  }
+
+  # debugging message at the end
+  if (pb_debug)
+    log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
+             ps_msg    = " * End of function create_ge_compare_plot_report_vrdggozw")
+
+  # return nothing
+  return(invisible(NULL))
+}
 
 
 

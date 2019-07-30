@@ -105,7 +105,6 @@ get_default_plot_opts_lbe_rh <- function(){
 }
 
 
-
 ## -- Defaults for PROD
 
 #' @title Default Plot Options For PROD
@@ -113,7 +112,7 @@ get_default_plot_opts_lbe_rh <- function(){
 #' @description
 #' Return a list with specific defaults and constants that are used
 #' to produce the comparison plot report for the trait group
-#' Lineare Beschreibung (PROD).
+#' Production (PROD).
 #'
 get_default_plot_opts_prod <- function(){
   # return list of default options
@@ -123,6 +122,26 @@ get_default_plot_opts_prod <- function(){
               rmd_report_stem = "ge_plot_report_prod",
               vec_breed       = c("bv", "je", "rh"),
               vec_sex         = c("Bull", "Cow")))
+}
+
+
+## -- Defaults for VRDGGOZW
+
+#' @title Default Plot Options For VRDGGOZW
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Lineare Beschreibung (VRDGGOZW).
+#'
+get_default_plot_opts_vrdggozw <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_projekte/projekte/calcVRDGGOZW/result",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_vrdggozw",
+              vec_breed       = c("bv", "ob", "rh", "sf", "si"),
+              vec_zw_type     = c("VRZW", "DGZW", "GOZW")))
 }
 
 
