@@ -56,6 +56,6 @@ The computation of estimated genomic breeding values is done with a number of st
 
 The current steps of the pipeline operate in a fashion that they ignore any job which does not fullfill the prerequisites of the current step. Futhermore, any existing result files from a previous run of the same step are either first deleted in the case of `runBayesC.sh` or are overwritten in the case of the prediction scripts. This requires that one step can only be performed whenever the previous step is already finished. This increases the overall runtime of the whole pipeline. 
 
-An Alternative idea might be to produce checker-scripts that can be run after each step which find the jobs that have not completed a given prerequisites. These jobs are then written to new job-definition files which can be used in a second call to the same pipeline step. 
+An Alternative idea might be to produce checker-scripts that can be run after each step which find the jobs that have not completed a given prerequisites. These jobs are then written to new job-definition files which can be used in a second call to the same computation step. This allows the faster running jobs to advance further in the computation pipeline by starting the next step as soon as the previous step is completed. From the pipeline-design point of view, it is not useful to break up the computations into distinct steps.  
 
 

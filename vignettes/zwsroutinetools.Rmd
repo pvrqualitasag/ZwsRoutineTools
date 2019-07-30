@@ -16,5 +16,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-The package `zwsroutinetools` contains utility functions and tools that are useful for working with data and outputs of a routine genetic evaluation (GE) analysis run. 
+
+The package `zwsroutinetools` is an experimental package and a sandbox for a package called `geRt` which is released later and includes the production version of all the tools. In this package, we start experiments of new things and want to test different ideas. Both packages `zwsroutinetools` and `geRt` both contain utility functions and tools that are useful for working with data and outputs of a routine genetic evaluation (GE) analysis run. It has to be noted that the tools are explicitly tailored according to the needs in the context of Qualitas AG. The aspect of providing generic general purpose tools is not of primary focus here. 
+
+
+## Useful Tools
+Tools that are considered to be useful are grouped into different categories. So far the following categories were identified
+
+1. quality assurance
+2. result collection and gathering
+
+
+## Quality Assurance
+Quality assurance has become a very important aspect in every data analysis and in data science in general. Although questions like when is a data analysis a good data analysis are still a matter of debate and are far from being definitively answered, we can come up with a few criteria that help us to identify potential quality problems in the data analysis that we are doing during a GE-analysis routine.
+
+
+
 
