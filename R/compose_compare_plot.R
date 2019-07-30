@@ -913,7 +913,7 @@ create_ge_compare_plot_report_vrdggozw <- function(ps_cur_ge_label,
       # archive directory
       s_arch_dir <- file.path(l_plot_opts$arch_dir_stem,
                               ps_prev_ge_label,
-                              "calcVRDGGOZW/work",
+                              "calcVRDGGOZW",
                               paste0("result", ps_prevgsrun_label, collapse = ""),
                               paste0(breed, "basis", collapse = ""),
                               paste0("comp", zwt, collapse = ""))
