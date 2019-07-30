@@ -147,7 +147,7 @@ else
 fi
 
 # create the comparison report
-Rscript -e "zwsroutinetools::create_ge_compare_plot_report_${TRAIT}(pn_cur_ge_label='${CURGE}', pn_prev_ge_label = '${PREVGE}', pn_prevgsrun_label = '${PREVGS}', pb_debug=TRUE)"
+Rscript -e "zwsroutinetools::create_ge_compare_plot_report_${TRAIT}(ps_cur_ge_label='${CURGE}', ps_prev_ge_label = '${PREVGE}', ps_prevgsrun_label = '${PREVGS}', pb_debug=TRUE)"
 
 
 ### # ====================================================================== #
