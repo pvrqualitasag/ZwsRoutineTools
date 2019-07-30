@@ -117,21 +117,34 @@ create_ge_plot_report <- function(ps_gedir,
     cat("\n```{r, echo=FALSE, fig.show='hold', out.width='50%'}\n", file = ps_rmd_report, append = TRUE)
     # check whether corresponding plot file existed in archive
     bnf <- basename(f)
+    # path to unzipped plot file in archive
+    bnfarchpath <- file.path(ps_archdir, bnf)
+    # gzipped plotfile
     bnfgz <- paste(bnf, "gz", sep = ".")
-    bnfgzpath <- file.path(ps_archdir, bnfgz)
-    if (file.exists(bnfgzpath)){
+    # path to gzipped plotfile in archive
+    bnfgzarchpath <- file.path(ps_archdir, bnfgz)
+    # path to plotfile in target directory
+    bnftrgpath <- file.path(s_trgdir, bnf)
+    ### # TODO: the following can be refactored into functions that copy and gunzip archive files
+    if (file.exists(bnfgzarchpath)){
       if (pb_debug) cat(" * Found archived plot file: ", bnfgz, " in ", ps_archdir, "\n")
       # copy file from archive
-      if (pb_debug) cat(" * Copy from: ", bnfgzpath, " to ", s_trgdir, "\n")
-      file.copy(from = bnfgzpath, to = s_trgdir)
+      if (pb_debug) cat(" * Copy from: ", bnfgzarchpath, " to ", s_trgdir, "\n")
+      file.copy(from = bnfgzarchpath, to = s_trgdir)
       bnfgztrgpath <- file.path(s_trgdir, bnfgz)
-      bnftrgpath <- file.path(s_trgdir, bnf)
       if (!file.exists(bnftrgpath)){
         if (pb_debug) cat(" * Unzip: ", bnfgztrgpath, "\n")
         R.utils::gunzip(bnfgztrgpath)
       } else {
         if (pb_debug) cat(" * File: ", bnftrgpath, " already exists", "\n")
       }
+      ### # Include extracted file into the report
+      cat(paste0("knitr::include_graphics(path = '", bnftrgpath, "')\n", collapse = ""), file = ps_rmd_report, append = TRUE)
+    } else if (file.exists(bnfarchpath)) {
+      if (pb_debug) cat(" * Found archived plot file: ", bnf, " in ", ps_archdir, "\n")
+      # copy file from archive
+      if (pb_debug) cat(" * Copy from: ", bnfarchpath, " to ", s_trgdir, "\n")
+      file.copy(from = bnfarchpath, to = s_trgdir)
       ### # Include extracted file into the report
       cat(paste0("knitr::include_graphics(path = '", bnftrgpath, "')\n", collapse = ""), file = ps_rmd_report, append = TRUE)
     } else {
