@@ -80,7 +80,7 @@ CURGE=""
 PREVGE=""
 PACKAGEUPDATE=""
 PREVGS=""
-while getopts ":c:p:uh" FLAG; do
+while getopts ":c:p:g:uh" FLAG; do
   case $FLAG in
     h) # produce usage message
       usage "Help message for $SCRIPT"
