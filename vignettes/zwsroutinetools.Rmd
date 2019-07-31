@@ -21,14 +21,16 @@ The package `zwsroutinetools` is an experimental package and a sandbox for a pac
 
 
 ## Useful Tools
-Tools that are considered to be useful are grouped into different categories. So far the following categories were identified
+Tools that are considered to be useful are grouped into different categories. So far, the following categories where tools are to be developed, were identified
 
 1. quality assurance
 2. result collection and gathering
 
 
 ## Quality Assurance
-Quality assurance has become a very important aspect in every data analysis and in data science in general. Although questions like when is a data analysis a good data analysis are still a matter of debate and are far from being definitively answered, we can come up with a few criteria that help us to identify potential quality problems in the data analysis that we are doing during a GE-analysis routine.
+Quality assurance has become a very important aspect in every data analysis and in data science in general. Although questions like when is a data analysis a good data analysis are still a matter of debate and are far from being definitively answered, we can come up with a few criteria that help us to identify potential quality problems in the analyses performed during a GE-routine run.
+
+The GE-routine runs are done regularly in a sequence. From one analysis to the next, only a small protion of the input data changes. As a consequence of that the results are expected to stay more or less constant. Hence the correlation between the predicted breeding values for all animals with prediction results in two subsequence GE-runs should be between $0.99$ and $1$.  
 
 
 
