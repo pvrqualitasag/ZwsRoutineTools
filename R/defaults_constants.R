@@ -136,12 +136,13 @@ get_default_plot_opts_prod <- function(){
 #'
 get_default_plot_opts_vrdggozw <- function(){
   # return list of default options
-  return(list(ge_dir_stem     = "/qualstorzws01/data_projekte/projekte/calcVRDGGOZW/result",
-              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
-              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
-              rmd_report_stem = "ge_plot_report_vrdggozw",
-              vec_breed       = c("bv", "ob", "rh", "sf", "si"),
-              vec_zw_type     = c("VRZW", "DGZW", "GOZW")))
+  return(list(ge_dir_stem     = '/qualstorzws01/data_projekte/projekte/calcVRDGGOZW/result',
+              arch_dir_stem   = '/qualstorzws01/data_archiv/zws',
+              rmd_templ       = system.file('templates/compare_plots.Rmd.template', package = 'zwsroutinetools'),
+              rmd_report_stem = 'ge_plot_report_vrdggozw',
+              vec_breed       = c('bv', 'ob', 'rh', 'sf', 'si'),
+              vec_zw_type     = c('VRZW', 'DGZW', 'GOZW'),
+              report_text     = '## Comparison Of Plots\nPlots compare estimates of ZW-type [ZWTYPE] for breed [BREED] between GE-run [PREVGERUN] on the left and the current GE-run [CURGERUN] on the right.'))
 }
 
 

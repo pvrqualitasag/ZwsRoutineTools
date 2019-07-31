@@ -935,10 +935,17 @@ create_ge_compare_plot_report_vrdggozw <- function(ps_cur_ge_label,
                  ps_msg    = paste0(" ** Archive dir: ", s_arch_dir, collapse = ""))
 
       # Report text appears in all reports of this trait before the plots are drawn
-      s_report_text  <- paste0('## Comparison Of Plots\nPlots compare estimates of VRDGGOZW for breed ', breed,
-                               ' between GE-run ', ps_prev_ge_label,
-                               ' on the left and the current GE-run ', ps_cur_ge_label,
-                               ' on the right.', collapse = "")
+      # s_report_text  <- paste0('## Comparison Of Plots\nPlots compare estimates of ZW-type ', zwt,
+      #                          ' for breed ', breed,
+      #                          ' between GE-run ', ps_prev_ge_label,
+      #                          ' on the left and the current GE-run ', ps_cur_ge_label,
+      #                          ' on the right.', collapse = "")
+      s_report_text  <- replace_plh(ps_report_text = l_plot_opts$report_text,
+                                    pl_replacement = list(list(pattern = "[ZWTYPE]", replacement = zwt),
+                                                          list(pattern = "[BREED]",  replacement = breed),
+                                                          list(pattern = "[PREVGERUN]", replacement = ps_prev_ge_label),
+                                                          list(pattern = "[CURGERUN]", replacement = ps_cur_ge_label)))
+
       if (pb_debug)
         log_info(ps_caller = "create_ge_compare_plot_report_vrdggozw",
                  ps_msg    = paste0(" ** Report text: ", s_report_text))
