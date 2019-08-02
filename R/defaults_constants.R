@@ -193,3 +193,26 @@ get_default_plot_opts_itb <- function(){
 }
 
 
+## -- Defaults for CNVRH
+
+#' @title Default Plot Options For CNVRH
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Interbull (CNVRH).
+#'
+get_default_plot_opts_cnvrh <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/convert/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_cnvrh",
+              vec_breed       = c("rh"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of converted cow proofs (CNVRH) for breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = '')))
+}
+
+
