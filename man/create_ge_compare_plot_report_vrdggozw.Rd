@@ -28,10 +28,10 @@ with the plots from the previous GE are constructed for VRDGGOZW
 }
 \examples{
 \dontrun{
-create_ge_compare_plot_report_prod(ps_cur_ge_label  = '1908',
-                                 ps_prev_ge_label = '1904',
-                                 ps_prevgsrun_label = '0719',
-                                 pb_debug = TRUE)
+create_ge_compare_plot_report_vrdggozw(ps_cur_ge_label    = '1908',
+                                       ps_prev_ge_label   = '1904',
+                                       ps_prevgsrun_label = '0719',
+                                       pb_debug           = TRUE)
 }
 
 }
