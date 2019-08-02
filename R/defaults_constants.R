@@ -41,7 +41,11 @@ get_default_plot_opts_nd <- function(){
               arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
               rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_nd",
-              vec_breed       = c("bv", "rh")))
+              vec_breed       = c("bv", "rh"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Nutzungsdauer (ND) for breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = "")))
 }
 
 
@@ -61,7 +65,12 @@ get_default_plot_opts_mar <- function(){
               rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_mar",
               vec_breed       = c("bv", "rh"),
-              vec_sex         = c("Bull", "Cow")))
+              vec_sex         = c("Bull", "Cow"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Mastitisresistance (MAR) for [SEX]',
+                                       ' of breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = "")))
 }
 
 
@@ -81,7 +90,12 @@ get_default_plot_opts_lbe <- function(){
               rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_lbe",
               vec_breed       = c("bv", "je"),
-              vec_sex         = c("Bull", "Cow")))
+              vec_sex         = c("Bull", "Cow"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Lineare Beschreibung (LBE) for [SEX]',
+                                       ' of breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = "")))
 }
 
 
@@ -101,7 +115,12 @@ get_default_plot_opts_lbe_rh <- function(){
               rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_lbe_rh",
               vec_breed       = c("rh"),
-              vec_sex         = c("Bull", "Cow")))
+              vec_sex         = c("Bull", "Cow"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Lineare Beschreibung for RH (LBE_RH) for ', tolower(sex),
+                                       ' of breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = '')))
 }
 
 
@@ -121,7 +140,12 @@ get_default_plot_opts_prod <- function(){
               rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
               rmd_report_stem = "ge_plot_report_prod",
               vec_breed       = c("bv", "je", "rh"),
-              vec_sex         = c("Bull", "Cow")))
+              vec_sex         = c("Bull", "Cow"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Production (PROD) for [SEX]',
+                                       ' of breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = '')))
 }
 
 
@@ -143,6 +167,29 @@ get_default_plot_opts_vrdggozw <- function(){
               vec_breed       = c('bv', 'ob', 'rh', 'sf', 'si'),
               vec_zw_type     = c('VRZW', 'DGZW', 'GOZW'),
               report_text     = '## Comparison Of Plots\nPlots compare estimates of ZW-type [ZWTYPE] for breed [BREED] between GE-run [PREVGERUN] on the left and the current GE-run [CURGERUN] on the right.'))
+}
+
+
+## -- Defaults for ITB
+
+#' @title Default Plot Options For ITB
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for the trait group
+#' Interbull (ITB).
+#'
+get_default_plot_opts_itb <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = "/qualstorzws01/data_zws/itb/work",
+              arch_dir_stem   = "/qualstorzws01/data_archiv/zws",
+              rmd_templ       = system.file("templates/compare_plots.Rmd.template", package = 'zwsroutinetools'),
+              rmd_report_stem = "ge_plot_report_itb",
+              vec_breed       = c("bv", "je", "rh"),
+              report_text     = paste0('## Comparison Of Plots\nPlots compare estimates of Interbull (ITB) for breed [BREED]',
+                                       ' between GE-run [PREVGERUN]',
+                                       ' on the left and the current GE-run [CURGERUN]',
+                                       ' on the right.', collapse = '')))
 }
 
 
