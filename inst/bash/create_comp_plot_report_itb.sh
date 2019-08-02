@@ -2,7 +2,7 @@
 ###
 ###
 ###
-###   Purpose:   Creation of comparison plot report for PROD
+###   Purpose:   Creation of comparison plot report for ITB
 ###   started:   2019-07-08 10:48:12 (pvr)
 ###
 ### ###################################################################### ###
@@ -29,7 +29,7 @@ SCRIPT=`$BASENAME ${BASH_SOURCE[0]}`       # Set Script Name variable           
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) # define script directory   #
 # ---------------------------------------- # --------------------------------------- #
 # trait                                    #                                         #
-TRAIT=prod                                 # Trait abbreviation                      #
+TRAIT=itb                                  # Trait abbreviation                      #
 # ======================================== # ======================================= #
 
 
