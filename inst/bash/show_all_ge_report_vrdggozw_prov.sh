@@ -30,7 +30,7 @@ for breed in bv ob rh sf si
 do
   for zwt in VRZW DGZW GOZW
   do
-    qlmanage -p /Volumes/data_zws/calcVRDGGOZW/result/${breed}basis/comp${zwt}/ge_plot_report_vrdggozw_compare_${breed}_${zwt}.pdf
+    qlmanage -p /Volumes/data_projekte/projekte/calcVRDGGOZW/result/${breed}basis/comp${zwt}/ge_plot_report_vrdggozw_prov_compare_${breed}_${zwt}.pdf
     sleep 2
   done
 done
