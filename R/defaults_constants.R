@@ -155,15 +155,36 @@ get_default_plot_opts_prod <- function(){
 #'
 #' @description
 #' Return a list with specific defaults and constants that are used
-#' to produce the comparison plot report for the trait group
-#' Lineare Beschreibung (VRDGGOZW).
+#' to produce the comparison plot report for genomic breeding values
+#' (VRDGGOZW).
 #'
 get_default_plot_opts_vrdggozw <- function(){
+  # return list of default options
+  return(list(ge_dir_stem     = '/qualstorzws01/data_zws/calcVRDGGOZW/result',
+              arch_dir_stem   = '/qualstorzws01/data_archiv/zws',
+              rmd_templ       = system.file('templates/compare_plots.Rmd.template', package = 'zwsroutinetools'),
+              rmd_report_stem = 'ge_plot_report_vrdggozw',
+              vec_breed       = c('bv', 'ob', 'rh', 'sf', 'si'),
+              vec_zw_type     = c('VRZW', 'DGZW', 'GOZW'),
+              report_text     = '## Comparison Of Plots\nPlots compare estimates of ZW-type [ZWTYPE] for breed [BREED] between GE-run [PREVGERUN] on the left and the current GE-run [CURGERUN] on the right.'))
+}
+
+
+## -- Defaults for VRDGGOZW_PROV
+
+#' @title Default Plot Options For VRDGGOZW_PROV
+#'
+#' @description
+#' Return a list with specific defaults and constants that are used
+#' to produce the comparison plot report for preliminary genomic breeding values
+#' (VRDGGOZW_PROV) based on previous run ITB_BVs.
+#'
+get_default_plot_opts_vrdggozw_prov <- function(){
   # return list of default options
   return(list(ge_dir_stem     = '/qualstorzws01/data_projekte/projekte/calcVRDGGOZW/result',
               arch_dir_stem   = '/qualstorzws01/data_archiv/zws',
               rmd_templ       = system.file('templates/compare_plots.Rmd.template', package = 'zwsroutinetools'),
-              rmd_report_stem = 'ge_plot_report_vrdggozw',
+              rmd_report_stem = 'ge_plot_report_vrdggozw_prov',
               vec_breed       = c('bv', 'ob', 'rh', 'sf', 'si'),
               vec_zw_type     = c('VRZW', 'DGZW', 'GOZW'),
               report_text     = '## Comparison Of Plots\nPlots compare estimates of ZW-type [ZWTYPE] for breed [BREED] between GE-run [PREVGERUN] on the left and the current GE-run [CURGERUN] on the right.'))
