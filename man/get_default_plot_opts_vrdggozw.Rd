@@ -8,6 +8,6 @@ get_default_plot_opts_vrdggozw()
 }
 \description{
 Return a list with specific defaults and constants that are used
-to produce the comparison plot report for the trait group
-Lineare Beschreibung (VRDGGOZW).
+to produce the comparison plot report for genomic breeding values
+(VRDGGOZW).
 }
